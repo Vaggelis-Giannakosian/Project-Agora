@@ -11,5 +11,5 @@ app.post('/', (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log(`Bidder api listening on port ${port}`)
 })
