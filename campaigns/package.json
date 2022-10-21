@@ -1,0 +1,18 @@
+{
+  "name": "campaigns",
+  "version": "1.0.0",
+  "description": "Mock api used by bidder",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vangelis Giannakosian",
+  "license": "ISC",
+  "devDependencies": {
+    "express-mock-api-middleware": "^1.0.12"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

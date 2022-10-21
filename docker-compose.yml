@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+
+  bidder:
+    build: ./bidder
+    container_name: bidder
+    ports:
+      - "3000:3000"
+
+  campaigns:
+    build: ./campaigns
+    container_name: campaigns
+    ports:
+      - "4000:4000"
