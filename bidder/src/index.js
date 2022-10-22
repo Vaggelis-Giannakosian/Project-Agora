@@ -25,3 +25,5 @@ app.post('/', async (req, res) => {
 app.listen(process.env.PORT, () => {
     console.log(`Bidder api listening on port ${process.env.PORT}`)
 })
+
+module.exports = app;
