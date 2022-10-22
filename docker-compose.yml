@@ -5,11 +5,23 @@ services:
   bidder:
     build: ./bidder
     container_name: bidder
+    networks:
+      - local
+    depends_on:
+      - campaigns
+    environment:
+       CAMPAIGNS_ENDPOINT : http://campaigns:4000/api/campaigns
     ports:
       - "3000:3000"
 
   campaigns:
     build: ./campaigns
     container_name: campaigns
+    networks:
+      - local
     ports:
       - "4000:4000"
+
+networks:
+  local:
+    driver: bridge
