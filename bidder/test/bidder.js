@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 const nock = require('nock')
 const server = require('../src/index');
 const fs = require("fs");
-const campaigns = JSON.parse(fs.readFileSync(__dirname + '/../../campaigns.json'));
+const campaigns = JSON.parse(fs.readFileSync(__dirname + '/../../campaigns/campaigns.json'));
 const bidGreece = JSON.parse(fs.readFileSync(__dirname + '/../../bid_greece.json'));
 const bidUsa = JSON.parse(fs.readFileSync(__dirname + '/../../bid_usa.json'));
 
