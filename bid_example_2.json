@@ -1,0 +1,16 @@
+{
+  "id": "7979d0c78074638bbdf739ffdf285c7e1c74a691",
+  "app": {
+    "id": "20625",
+    "name": "com.cheezburger.icanhas"
+  },
+  "device": {
+    "dpidsha1": "F099E6D1C485756C45D1EEACB33C73B55C4BC499",
+    "os": "Android",
+    "geo": {
+      "country": "USA",
+      "lat": 35.012345,
+      "lon": -115.12345
+    }
+  }
+}
