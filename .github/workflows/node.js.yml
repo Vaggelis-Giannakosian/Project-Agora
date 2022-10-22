@@ -26,5 +26,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: bidder/package-lock.json
-    - run: npm ci
+    - run: npm ci --no-audit --prefer-offline
     - run: npm test
