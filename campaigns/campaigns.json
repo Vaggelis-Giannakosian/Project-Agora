@@ -1,0 +1,45 @@
+[
+  {
+    "id": "1",
+    "name": "Name 1",
+    "price": 10,
+    "ad_creative": "<script>...</script>",
+    "targetedCountries": [
+      "GREECE"
+    ],
+    "targetedLocations": [
+      "ALL LOCATIONS"
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Name 2",
+    "price": 8,
+    "ad_creative": "<script>...</script>",
+    "targetedCountries": [
+      "USA","ALL COUNTRIES"
+    ],
+    "targetedLocations": [
+      "ALL LOCATIONS"
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Name 3",
+    "price": 10,
+    "ad_creative": "<script>...</script>",
+    "targetedCountries": [
+      "ALL COUNTRIES"
+    ],
+    "targetedLocations": [
+      {
+        "lat": [10, 20],
+        "lon": [10, 20]
+      },
+      {
+        "lat": [10, 20],
+        "lon": [10, 20]
+      }
+    ]
+  }
+]

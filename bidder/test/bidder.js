@@ -2,23 +2,19 @@ const chai = require("chai");
 const chaiHttp = require('chai-http');
 const nock = require('nock')
 const server = require('../src/index');
+const fs = require("fs");
+const campaigns = JSON.parse(fs.readFileSync(__dirname + '/../../campaigns/campaigns.json'));
 
 chai.use(chaiHttp);
 
 // mock campaigns http request
 const scope = nock('http://localhost:4000')
-    .post('/api/campaigns')
+    .get('/api/campaigns')
     .reply(200, {
-        campaign: {
-            id: 'asdfasdf',
-            price: 5,
-            ad_creative: "<script>...</script>"
-        },
+        campaigns: campaigns
     })
 
-
 describe("Test Bid Request validity", function () {
-
 
     describe("Test without input", function () {
         it("is returning 400 status code", function (done) {
