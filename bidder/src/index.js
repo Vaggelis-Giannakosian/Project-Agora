@@ -9,10 +9,17 @@ require('dotenv').config()
 app.use(bodyParser.raw({type: 'application/octet-stream'}))
 
 app.post('/', async (req, res) => {
-    const {id, device} = JSON.parse(req.body)
-    const bidResponse = await processBid(id, device);
+    try{
+        const {id, app, device} = JSON.parse(req.body)
 
-    return res.status(bidResponse ? 200 : 204).json(bidResponse)
+        if (!id || !device || !app) throw new Error('You must provide bidId, deviceInfo and appInfo')
+
+        const bidResponse = await processBid(id, device);
+        return res.status(bidResponse ? 200 : 204).json(bidResponse)
+    }catch (e) {
+        console.log(e)
+        return res.status(400).json({message: e.message})
+    }
 })
 
 app.listen(process.env.PORT, () => {
