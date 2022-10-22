@@ -10,7 +10,7 @@ services:
     depends_on:
       - campaigns
     environment:
-       CAMPAIGNS_ENDPOINT : http://campaigns:4000/api/campaigns
+       CAMPAIGNS_ENDPOINT : http://campaigns:3001/api/campaigns
     ports:
       - "3000:3000"
 
@@ -20,7 +20,7 @@ services:
     networks:
       - local
     ports:
-      - "4000:4000"
+      - "3001:3001"
 
 networks:
   local:

@@ -1,6 +1,6 @@
 const path = require('path');
 const app = require('express')();
-const port = 4000;
+require('dotenv').config()
 
 const mockApiMiddleware = require('express-mock-api-middleware')(
     path.resolve(__dirname, 'mock'),
@@ -9,7 +9,7 @@ const mockApiMiddleware = require('express-mock-api-middleware')(
 
 app.use('/', mockApiMiddleware);
 
-app.listen(port,  error => {
-    console.log(`Campaigns api listening on port ${port}`)
+app.listen(process.env.PORT,  error => {
+    console.log(`Campaigns api listening on port ${process.env.PORT}`)
 });
 
