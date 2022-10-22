@@ -10,9 +10,9 @@ const bidUsa = JSON.parse(fs.readFileSync(__dirname + '/../../bid_usa.json'));
 chai.use(chaiHttp);
 
 // mock campaigns http request
-const scope = nock('http://localhost:4000')
+const scope = nock(process.env.CAMPAIGNS_HOST)
     .persist()
-    .get('/api/campaigns')
+    .get(process.env.CAMPAIGNS_ENDPOINT)
     .reply(200, {
         campaigns: campaigns
     })
