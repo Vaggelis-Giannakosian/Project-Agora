@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 const nock = require('nock')
 const server = require('../src/index');
 const fs = require("fs");
-const campaigns = JSON.parse(fs.readFileSync(__dirname + '/../../campaigns/campaigns.json'));
+const campaigns = JSON.parse(fs.readFileSync(__dirname + '/../../campaigns.json'));
 
 chai.use(chaiHttp);
 
