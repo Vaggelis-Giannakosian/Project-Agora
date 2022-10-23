@@ -226,11 +226,13 @@ The Campaign API has been mocked in two ways:
 
 For the build and deployment, a Dockerfile has been created for each service and and docker-compose has been used as an orchestration tool.
 
+<ins>**You will need to have ``docker`` and ``docker-compose`` installed on your local machine.**</ins>
+
 While being on the root of the repository type on the terminal to start the containers:
 
 ```dockerfile
 docker-compose up --build
 ```
 
-The Bidder API and the Campaign API will be exposed to ports 3000 and 3001 respectively.
+The Bidder API and the Campaign API will be exposed to ports **3000** and **3001** respectively.
 
