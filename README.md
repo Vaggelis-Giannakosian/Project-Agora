@@ -4,21 +4,27 @@ You are a software engineer for an advertising technology company called Project
 company wants to enter the world of real-time bidding (RTB) and you are asked to implement a
 real-time bidder for mobile advertising campaigns.
 
-## Real-Time Bidder (RTB)
+### Real-Time Bidder (RTB)
 
 A bidder is simply a platform which allows advertisers to submit bids to buy mobile ad space in
 real-time. A bidder receives bid requests from 3rd-party ad exchanges and responds back with a
 bid response. This bid then competes with bids from other bidders in a real-time auction at the
 exchange. The highest bid (in terms of bid price) wins and gets to show its ad.
 
+# Approach
+
+## Architecture of the system
+
+The flowchart below demonstrates the main components of this solution as well as the flow of data.
+
 ```mermaid
 graph LR
 A[Ad Exchange] -- Bid request --> 
 B[Bidder API] -- Bid response --> A
-B -- Get Campaigns--> D[Campaign API] --> B
+B -- Get campaigns--> D[Campaign API] --> B
 ```
 
-## <ins>Designing the Bidder API</ins>
+## Designing the Bidder API
 
 The Bidder receives bid requests from an ad exchange and it responds back either with a bid or
 an empty response. The bid request from the ad exchange contains info that is needed by the bidder to perform its operation.
@@ -62,6 +68,12 @@ The bid request contains the bid id, information concerning the mobile app askin
 
 The Bidder can either respond with the winning campaign's bid or with an empty response.
 
+Bid response:
+- ``id`` the unique id of the bid
+- ``campaign_id`` the id of the winning campaign
+- ``price`` the price of the winning campaign
+- ``ad_creative`` contains the Js code that is going to be rendered
+
 ```javascript
 {
   "id"          : string,
@@ -72,13 +84,13 @@ The Bidder can either respond with the winning campaign's bid or with an empty r
 ```
 The Bidder API returns the following status codes in its API:
 
-| Status Code | Result        | Description           |
-|:------------|:--------------|:----------------------|
-| 200         | `OK`          | `Submit matching Bid` |
-| 204         | `NO CONTENT`  | `No Bids available`   |
-| 400         | `BAD REQUEST` | `Invalid request`     |
+| Status Code | Result        | Description                  |
+|:------------|:--------------|:-----------------------------|
+| 200         | `OK`          | `Submit matching Bid`        |
+| 204         | `NO CONTENT`  | `No matching Bids` |
+| 400         | `BAD REQUEST` | `Invalid request`            |
 
-## <ins>Designing the Campaign API</ins>
+## Designing the Campaign API
 
 The Campaign API is an external service that provides all the available campaigns to the Bidder.
 
@@ -94,13 +106,19 @@ It is available without authentication and exposes a single endpoint.
 
 ### Request Body
 
-The Campaigns API does not need any input.
+The Campaign API receives no input.
 
 ### Response
 
-The Campaign API response with an array containing all the available campaigns.
+The Campaign API responds with an array containing all the available campaigns.
 
-The ``targetedLocations`` property can either contain lat-lon ranges in the form of sorted tuples or the string ``"ALL LOCATIONS"`` 
+Campaign Model:
+- ``id`` the unique id of the campaign
+- ``name`` the name of the campaign
+- ``price`` the price of the campaign
+- ``ad_creative`` contains the Js code that is going to be rendered
+- ``targetedCountries`` contains country names or the string ``"ALL COUNTRIES"``
+- ``targetedLocations`` can either contain lat-lon ranges in the form of sorted tuples or the string ``"ALL LOCATIONS"`` 
 
 ```javascript
 [
@@ -120,13 +138,13 @@ The ``targetedLocations`` property can either contain lat-lon ranges in the form
     }
 ]
 ```
-The Campaigns API returns the following status codes in its API:
+The Campaign API returns the following status codes in its API:
 
 | Status Code | Result        | 
 |:------------|:--------------|
 | 200         | `OK`          |
 
-## <ins>Designing the Bidder Service</ins>
+## Designing the Bidder Service
 
 The Bidder service is responsible for processing the Bid request and generating a valid Bid response.
 
@@ -139,13 +157,13 @@ The core functionalities of this service is to:
 ```mermaid
 sequenceDiagram
 Bidder API ->> Bidder Service: Bid request
-Bidder Service-->>Campaigns Api: Request available campaigns
-Campaigns Api--x Bidder Service: Campaigns
+Bidder Service-->>Campaign Api: Request available campaigns
+Campaign Api--x Bidder Service: Campaigns
 Bidder Service-->>Bidder Service: Filter campaigns by targeting criteria <br> and select the highest paying campgain
 Bidder Service-->>Bidder API: Return selected campaign or null
 ```
 
-## <ins>Designing the End to End Test Cases for the Bidder</ins>
+## Designing the End to End Test Cases for the Bidder
 
 Because the Bidder depends on the Campaign API, it will be mocked in order to simulate the real production functionality.
 
@@ -208,21 +226,21 @@ Respond with 404 Bad Request:
 }
 ```
 
-## <ins>Running the tests</ins>
+## Running the tests
 
 The tests are being run on every push to ``master`` branch by the pipeline created using Github Actions.
 
 For the manual execution of the tests move to ``/bidder`` folder and run:
 - ``npm install``
 - ``npm run test``
-## <ins>Mocking the Campaign API</ins>
+## Mocking the Campaign API
 
 The Campaign API has been mocked in two ways:
 - Using ``nock`` npm package on the End to End tests to intercept the http request.
 - Using ``express-mock-api-middleware`` npm package to create a fully operational mocked Campaign API.
 
 
-## <ins>Deployment</ins>
+## Deployment
 
 For the build and deployment, a Dockerfile has been created for each service and and docker-compose has been used as an orchestration tool.
 
