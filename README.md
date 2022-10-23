@@ -13,9 +13,9 @@ exchange. The highest bid (in terms of bid price) wins and gets to show its ad.
 
 ```mermaid
 graph LR
-A[AD EXCHANGE] -- Bid request --> 
-B[BIDDER API] -- Bid response --> A
-B -- Get Campaigns--> D[Campaigns API] --> B
+A[Ad Exchange] -- Bid request --> 
+B[Bidder API] -- Bid response --> A
+B -- Get Campaigns--> D[Campaign API] --> B
 ```
 
 ## <ins>Designing the Bidder API</ins>
