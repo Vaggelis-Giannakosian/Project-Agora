@@ -39,7 +39,7 @@ The Content-Type header is set to ``application/octet-stream`` by the RTB protoc
 
 The bid request contains the bid id, information concerning the mobile app asking for an ad and mobile device information such as OS, geo location and device id.
 
-```json
+```javascript
 {
   "id"     : string,
   "app"    : {
@@ -62,7 +62,7 @@ The bid request contains the bid id, information concerning the mobile app askin
 
 The Bidder can either respond with the winning campaign's bid or with an empty response.
 
-```json
+```javascript
 {
   "id"          : string,
   "campaign_id" : string,
@@ -102,7 +102,7 @@ The Campaign API response with an array containing all the available campaigns.
 
 The ``targetedLocations`` property can either contain lat-lon ranges in the form of sorted tuples or the string ``"ALL LOCATIONS"`` 
 
-```json
+```javascript
 [
     {
         "id"          : string,
