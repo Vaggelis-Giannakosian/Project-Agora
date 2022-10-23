@@ -34,13 +34,18 @@ const getAllCampaigns = async () => {
 }
 
 function resolveWinningCampaign(campaigns, country, lat, lon) {
-    return campaigns.filter((campaign) => matchesCountry(campaign, country) && matchesLocation(campaign, {lat, lon}))
-        .reduce((winningCampaign, campaign) => {
+    let winningCampaign = null;
 
-            if (!winningCampaign || campaign.price > winningCampaign.price) return campaign;
+    campaigns.forEach((campaign) => {
+        if(
+            !matchesCountry(campaign, country)
+            || !matchesLocation(campaign, {lat, lon})
+        ) return;
 
-            return winningCampaign;
-        }, null);
+        if (!winningCampaign || campaign.price > winningCampaign.price) winningCampaign = campaign;
+    })
+
+    return winningCampaign;
 }
 
 const matchesCountry = (campaign, country) => {
