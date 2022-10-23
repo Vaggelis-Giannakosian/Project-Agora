@@ -1,8 +1,8 @@
 const express = require('express')
 const app = express();
 const bodyParser = require('body-parser')
-const serviceProvider = require('./services/serviceProvider');
-const {bidderService} = serviceProvider;
+const {BIDDER_SERVICE, serviceProvider} = require('./services/serviceProvider');
+const bidderService = serviceProvider.get(BIDDER_SERVICE);
 
 require('dotenv').config()
 
