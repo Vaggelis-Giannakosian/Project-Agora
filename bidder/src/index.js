@@ -1,7 +1,8 @@
 const express = require('express')
 const app = express();
 const bodyParser = require('body-parser')
-const {processBid} = require("./services/bidderService");
+const serviceProvider = require('./services/serviceProvider');
+const {bidderService} = serviceProvider;
 
 require('dotenv').config()
 
@@ -14,7 +15,7 @@ app.post('/api/bids', async (req, res) => {
 
         if (!id || !device || !app || !device.hasOwnProperty('geo')) throw new Error('You must provide bidId, deviceInfo and appInfo')
 
-        const bidResponse = await processBid(id, device);
+        const bidResponse = await bidderService.processBid(id, device);
         return res.status(bidResponse ? 200 : 204).json(bidResponse)
     }catch (e) {
         return res.status(400).json({message: e.message})
