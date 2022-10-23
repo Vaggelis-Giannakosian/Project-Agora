@@ -17,11 +17,13 @@ const scope = nock(process.env.CAMPAIGNS_HOST)
         campaigns: campaigns
     })
 
+const bidderEndpoint = '/api/bids';
+
 describe("Test Bidder accepts only valid requests", function () {
 
     it("When not providing body", function (done) {
         chai.request(server)
-            .post('/')
+            .post(bidderEndpoint)
             .end((err, res) => {
                 chai.expect(res).not.to.have.status(200);
                 done();
@@ -30,7 +32,7 @@ describe("Test Bidder accepts only valid requests", function () {
 
     it("Given body but no content type header", function (done) {
         chai.request(server)
-            .post('/')
+            .post(bidderEndpoint)
             .send(Buffer.from(JSON.stringify(bidGreece)))
             .end((err, res) => {
                 chai.expect(res).to.have.status(400);
@@ -40,7 +42,7 @@ describe("Test Bidder accepts only valid requests", function () {
 
     it("When not given bid id", function (done) {
         chai.request(server)
-            .post('/')
+            .post(bidderEndpoint)
             .set('Content-Type', 'application/octet-stream')
             .send(Buffer.from(JSON.stringify({
                 "app": {},
@@ -56,10 +58,10 @@ describe("Test Bidder accepts only valid requests", function () {
 
     it("When not given app info", function (done) {
         chai.request(server)
-            .post('/')
+            .post(bidderEndpoint)
             .set('Content-Type', 'application/octet-stream')
             .send(Buffer.from(JSON.stringify({
-                "id":"0123456789ABCDEF0123456789ABCDEF",
+                "id": "0123456789ABCDEF0123456789ABCDEF",
                 "device": {
                     "geo": {}
                 }
@@ -72,10 +74,10 @@ describe("Test Bidder accepts only valid requests", function () {
 
     it("When not given device info", function (done) {
         chai.request(server)
-            .post('/')
+            .post(bidderEndpoint)
             .set('Content-Type', 'application/octet-stream')
             .send(Buffer.from(JSON.stringify({
-                "id":"0123456789ABCDEF0123456789ABCDEF",
+                "id": "0123456789ABCDEF0123456789ABCDEF",
                 "app": {},
             })))
             .end((err, res) => {
@@ -91,7 +93,7 @@ describe("Test Bidder on valid requests", function () {
     describe("Test with bidGreece example", function () {
         it("is returning 200 status code", function (done) {
             chai.request(server)
-                .post('/')
+                .post(bidderEndpoint)
                 .set('Content-Type', 'application/octet-stream')
                 .send(Buffer.from(JSON.stringify(bidGreece)))
                 .end((err, res) => {
@@ -102,11 +104,10 @@ describe("Test Bidder on valid requests", function () {
 
         it("is returning 200 status code", function (done) {
             chai.request(server)
-                .post('/')
+                .post(bidderEndpoint)
                 .set('Content-Type', 'application/octet-stream')
                 .send(Buffer.from(JSON.stringify(bidGreece)))
                 .end((err, res) => {
-                    chai.expect(res).to.have.status(200);
                     chai.expect(res.body).to.eql({
                         id: bidGreece.id,
                         campaign_id: '1',
@@ -122,11 +123,21 @@ describe("Test Bidder on valid requests", function () {
     describe("Test with bidUsa example", function () {
         it("is returning 200 status code", function (done) {
             chai.request(server)
-                .post('/')
+                .post(bidderEndpoint)
                 .set('Content-Type', 'application/octet-stream')
                 .send(Buffer.from(JSON.stringify(bidUsa)))
                 .end((err, res) => {
                     chai.expect(res).to.have.status(200);
+                    done();
+                });
+        });
+
+        it("is returning the correct response", function (done) {
+            chai.request(server)
+                .post(bidderEndpoint)
+                .set('Content-Type', 'application/octet-stream')
+                .send(Buffer.from(JSON.stringify(bidUsa)))
+                .end((err, res) => {
                     chai.expect(res.body).to.eql({
                         id: bidUsa.id,
                         campaign_id: '2',

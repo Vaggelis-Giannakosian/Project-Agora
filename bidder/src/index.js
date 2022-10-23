@@ -8,7 +8,7 @@ require('dotenv').config()
 // Bid request is of type application/octet-stream
 app.use(bodyParser.raw({type: 'application/octet-stream'}))
 
-app.post('/', async (req, res) => {
+app.post('/api/bids', async (req, res) => {
     try{
         const {id, app, device} = JSON.parse(req.body)
 
