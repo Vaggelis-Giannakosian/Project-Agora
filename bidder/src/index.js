@@ -13,7 +13,7 @@ app.post('/api/bids', async (req, res) => {
     try{
         const {id, app, device} = JSON.parse(req.body)
 
-        if (!id || !device || !app || !device.hasOwnProperty('geo')) throw new Error('You must provide bidId, deviceInfo and appInfo')
+        if (!id || !device || !app || !device.hasOwnProperty('geo')) throw new Error('You must provide Bid id, app and device info')
 
         const bidResponse = await bidderService.processBid(id, device);
         return res.status(bidResponse ? 200 : 204).json(bidResponse)

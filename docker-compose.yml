@@ -10,6 +10,7 @@ services:
     depends_on:
       - campaigns
     environment:
+        PORT: 3000
         CAMPAIGNS_HOST : http://campaigns:3001
         CAMPAIGNS_ENDPOINT: /api/campaigns
     ports:
@@ -18,10 +19,10 @@ services:
   campaigns:
     build: ./campaigns
     container_name: campaigns
+    environment:
+      PORT: 3001
     networks:
       - local
-    ports:
-      - "3001:3001"
 
 networks:
   local:

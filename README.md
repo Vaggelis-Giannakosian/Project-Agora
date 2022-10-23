@@ -253,5 +253,5 @@ While being on the root of the repository type on the terminal to start the cont
 docker-compose up --build
 ```
 
-The Bidder API and the Campaign API will be exposed to ports **3000** and **3001** respectively.
+The Bidder API will be exposed on port **3000**.
 
