@@ -225,6 +225,11 @@ Respond with 404 Bad Request:
   }
 }
 ```
+## Mocking the Campaign API
+
+The Campaign API has been mocked in two ways:
+- Using ``nock`` npm package on the End to End tests to intercept the external http request.
+- Using ``express-mock-api-middleware`` npm package to create a fully operational mocked Campaign API.
 
 ## Running the tests
 
@@ -233,18 +238,14 @@ The tests are being run on every push to ``master`` branch by the pipeline creat
 For the manual execution of the tests move to ``/bidder`` folder and run:
 - ``npm install``
 - ``npm run test``
-## Mocking the Campaign API
 
-The Campaign API has been mocked in two ways:
-- Using ``nock`` npm package on the End to End tests to intercept the http request.
-- Using ``express-mock-api-middleware`` npm package to create a fully operational mocked Campaign API.
-
+<ins>You will need to have ``node`` installed on your local machine.</ins>
 
 ## Deployment
 
 For the build and deployment, a Dockerfile has been created for each service and and docker-compose has been used as an orchestration tool.
 
-<ins>**You will need to have ``docker`` and ``docker-compose`` installed on your local machine.**</ins>
+<ins>You will need to have ``docker`` and ``docker-compose`` installed on your local machine.</ins>
 
 While being on the root of the repository type on the terminal to start the containers:
 
